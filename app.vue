@@ -1,10 +1,11 @@
 <script setup>
 const { setLocale, locale } = useI18n()
 
-const {data, execute} = await useFetch("/api/hello", {
+const {data, execute, pending} = await useFetch("/api/hello", {
   query: {
     l: locale
-  }
+  },
+  server: true
 });
 </script>
 
@@ -17,7 +18,10 @@ const {data, execute} = await useFetch("/api/hello", {
     </div>
     <hr />
     <div>
-      From api: {{ data }}<br/>
+      From api:
+      <span v-if="pending">Loading...</span>
+      <span v-else>{{ data }}</span>
+      <br>
       <button @click="execute()" type="button">Fetch</button>
     </div>
   </div>

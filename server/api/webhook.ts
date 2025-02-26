@@ -1,8 +1,8 @@
 export default defineEventHandler(async event => {
     // call `useTranslation`, so it return the translation function
+    console.log("webhook entered");
     const t = await useTranslation(event);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
+    console.log("webhook - use translation called", !!t);
     return {
         // call translation function with key of locale messages,
         // and translation function has some overload
