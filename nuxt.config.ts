@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",
     experimental: {
-      localeDetector: './../server/utils/i18n/localeDetector.ts'
+      localeDetector: 'localeDetector.ts'
     }
   }
 })
