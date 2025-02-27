@@ -1,0 +1,33 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 431c3a91c14d9cb3be0cf193a9388919c0525c0d..fb67aa3e6d6a7601ad820af0838a7e47762ac4a6 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -20,15 +20,28 @@ function defineI18nMiddleware(options) {
+       event.context._i18nLocale = getLocaleDetector(event, i18n);
+       i18n.locale = event.context._i18nLocale;
+       event.context.i18n = i18n;
++
++      // PATCH
++      var hasValue = event.context.i18n;
++      if(hasValue){
++        console.log("defineI18nMiddleware:onRequest content.i18n hasValue");
++      }
++      else {
++        console.log("❌ defineI18nMiddleware:onRequest content.i18n DOES NOT HAVE VALUE");
++      }
+     },
+     onAfterResponse(event) {
+       i18n.locale = orgLocale;
+       delete event.context.i18n;
++      // PATCH
++      console.log("defineI18nMiddleware:onAfterResponse content.i18n removed");
+     }
+   };
+ }
+ const detectLocaleFromAcceptLanguageHeader = (event) => getHeaderLocale(event).toString();
+ async function useTranslation(event) {
++    // PATCH
++    console.log("defineI18nMiddleware useTranslation called; context.i18n?", !!event.context.i18n);
+   if (event.context.i18n == null) {
+     throw new Error(
+       "middleware not initialized, please setup `onRequest` and `onAfterResponse` options of `createApp` with the middleware obtained with `defineI18nMiddleware`"
