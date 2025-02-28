@@ -10,5 +10,15 @@ export default defineNuxtConfig({
     experimental: {
       localeDetector: './../server/utils/i18n/localeDetector.ts'
     }
+  },
+  nitro: {
+    vercel: {
+      config: {
+        crons: [{
+          path: '/api/cron',
+          schedule: '* * * * *',
+        }],
+      }
+    }
   }
 })
